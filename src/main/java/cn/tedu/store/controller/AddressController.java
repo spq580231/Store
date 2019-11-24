@@ -17,8 +17,7 @@ import cn.tedu.store.service.IAddressService;
 
 @Controller
 @RequestMapping("/address")
-public class AddressController
-        extends BaseController {
+public class AddressController extends BaseController {
 
     @Autowired
     private IAddressService addressService;
@@ -29,6 +28,7 @@ public class AddressController
     public ResponseResult<Void> handleAddnew(Address address, HttpSession session) {
         // 获取uid
         Integer uid = getUidFromSession(session);
+        System.out.println(uid);
         // 将uid封装到address
         address.setUid(uid);
         // 调用业务层执行增加
