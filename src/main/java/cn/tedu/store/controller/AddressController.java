@@ -22,13 +22,12 @@ public class AddressController extends BaseController {
     @Autowired
     private IAddressService addressService;
 
-    @RequestMapping(value = "/addnew.do",
-            method = RequestMethod.POST)
+    @RequestMapping(value = "/addnew.do", method = RequestMethod.POST)
     @ResponseBody
     public ResponseResult<Void> handleAddnew(Address address, HttpSession session) {
         // 获取uid
         Integer uid = getUidFromSession(session);
-        System.out.println(uid);
+
         // 将uid封装到address
         address.setUid(uid);
         // 调用业务层执行增加
