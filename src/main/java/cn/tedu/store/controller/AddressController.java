@@ -27,7 +27,7 @@ public class AddressController extends BaseController {
     public ResponseResult<Void> handleAddnew(Address address, HttpSession session) {
         // 获取uid
         Integer uid = getUidFromSession(session);
-        System.out.println(uid);
+
 
         // 将uid封装到address
         address.setUid(uid);
