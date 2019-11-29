@@ -1,21 +1,16 @@
 package cn.tedu.store.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import cn.tedu.store.entity.Address;
 import cn.tedu.store.entity.District;
 import cn.tedu.store.mapper.AddressMapper;
 import cn.tedu.store.service.IAddressService;
 import cn.tedu.store.service.IDistrictService;
-import cn.tedu.store.service.ex.AddressAccessException;
-import cn.tedu.store.service.ex.AddressNotFoundException;
-import cn.tedu.store.service.ex.DeleteDataException;
-import cn.tedu.store.service.ex.InsertDataException;
-import cn.tedu.store.service.ex.UpdateDataException;
+import cn.tedu.store.service.ex.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service("addressService")
 public class AddressServiceImpl implements IAddressService {
@@ -38,6 +33,12 @@ public class AddressServiceImpl implements IAddressService {
 
     public Integer updateAddressById(Integer id){
         return updateById(id);
+    }
+
+    @Override
+    public Address findAddressFromId(Integer id) {
+        return findAddressById(id);
+
     };
 
     public List<Address> getList(Integer uid) {
@@ -187,6 +188,7 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     private Integer updateById(Integer id) {
+        System.out.println(id);
         Integer rows = addressMapper.updateById(id);
         if (rows != 1) {
             throw new DeleteDataException("更新收货地址时出现未知错误！请联系系统管理员！");

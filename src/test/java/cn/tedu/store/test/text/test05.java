@@ -1,26 +1,12 @@
 package cn.tedu.store.test.text;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
 public class test05 {
-
     public static void main(String[] args) {
-
-        int num = 8;
-        for (int i = 1; i <= num; i++) {
-            for (int j = num; j > i; j--) {
-                System.out.print(" ");
+        int arr[] = {2014, 2015, 2016, 2017, 2018};
+        for (int i : arr) {
+            if (i % 4 == 0) {
+                System.out.println(i);
             }
-            for (int j = i; j >= 1; j--) {
-                System.out.print(j);
-            }
-            for (int j = 2; j <= i; j++) {
-                System.out.print(j);
-            }
-            System.out.println();
         }
 
 

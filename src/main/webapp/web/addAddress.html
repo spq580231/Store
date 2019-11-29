@@ -153,7 +153,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label"><span style="color: red;">*</span>收货人：</label>
                     <div class="col-md-8">
-                        <input name="recvName" type="text" class="form-control" placeholder="请输入收货人姓名">
+                        <input name="recvName" id="recv-Name" type="text" class="form-control" placeholder="请输入收货人姓名">
                     </div>
                 </div>
                 <div class="address_content" data-toggle="distpicker">
@@ -335,7 +335,7 @@
         menu.empty();
 
         // 准备加载新的列表
-        console.log("加载列表...");
+        //console.log("加载列表...");
         var op = '<option value="0">' + defaultText + '</option>';
         menu.append(op);
 
@@ -366,6 +366,7 @@
     $("document").ready(function () {
         // 加载省列表
         showProvinceList();
+        getAddressId();
 
         var url = "../user/info.do";
         $.ajax({
@@ -385,6 +386,45 @@
             }
         });
     });
+
+    function getAddressId() {
+        $.ajax({
+            "url": "../address/sendAddressId.do",
+            "data": "AddressId=AddressId",
+            "type": "POST",
+            "dataType": "json",
+            "success": function (json) {
+                if (json.state == 200) {
+                    findAddressById(json.data)
+                }
+            }
+        });
+
+    }
+
+    function findAddressById(id) {
+        console.log("更新id=" + id + "的收货地址……");
+        var url = "../address/findAddressById.do"
+        var data = "id=" + id;
+        $.ajax({
+            "url": url,
+            "data": data,
+            "type": "GET",
+            "dataType": "json",
+            "success": function (json) {
+                if (json.state == 200) {
+                    $("#recv-Name").val(json.data.recvName);
+                } else {
+                    alert("更新失败！" + json.message);
+                }
+            },
+            "error": function (xhr) {
+                console.log("响应码：" + xhr.status);
+                alert("您的登录信息已过期，请重新登录！");
+                location.href = "login.html";
+            }
+        });
+    }
 
     // 当省列表的选中选项改变时
     $("#recvProvince").change(function () {

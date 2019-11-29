@@ -1,12 +1,12 @@
 package cn.tedu.store.service;
 
-import java.util.List;
-
 import cn.tedu.store.entity.Address;
 import cn.tedu.store.service.ex.AddressAccessException;
 import cn.tedu.store.service.ex.AddressNotFoundException;
 import cn.tedu.store.service.ex.DeleteDataException;
 import cn.tedu.store.service.ex.UpdateDataException;
+
+import java.util.List;
 
 /**
  * 收货地址的数据业务层
@@ -60,6 +60,9 @@ public interface IAddressService {
 
 
 	Integer updateAddressById(Integer id);
+
+
+	Address findAddressFromId(Integer id);
 }
 
 

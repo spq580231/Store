@@ -294,7 +294,7 @@
 							+ '<td>#{recv_name}</td>'
 							+ '<td>#{recv_address}</td>'
 							+ '<td>#{recv_phone}</td>'
-							+ '<td><a class="btn btn-xs btn-info" href="javascript:updateById(#{id})"><span class="fa fa-edit"></span>修改</a></td>'
+							+ '<td><a class="btn btn-xs btn-info" href="javascript:getAddressId(#{id})" id="modifier"><span class="fa fa-edit"></span>修改</a></td>'
 							+ '<td><a class="btn btn-xs add-del btn-info" href="javascript:deleteById(#{id})" onclick="return confirm(\'删除操作将不可恢复！您确定删除吗？\')"><span class="fa fa-trash-o"></span>删除</a></td>'
 							+ '<td><a class="btn btn-xs add-def btn-default" href="javascript:setDefault(#{id})">设为默认</a></td>'
 							+ '</tr>';
@@ -370,9 +370,9 @@
 		}
 
 
-		function updateById(id) {
-			console.log("更新id=" + id + "的收货地址……");
-			var url = "../address/update.do"
+
+		function getAddressId(id) {
+			var url = "../address/getAddressId.do"
 			var data = "id=" + id;
 			$.ajax({
 				"url": url,
@@ -381,7 +381,7 @@
 				"dataType": "json",
 				"success": function(json) {
 					if (json.state == 200) {
-						showAddressList();
+						location.href="addAddress.html";
 					} else {
 						alert("更新失败！" + json.message);
 					}

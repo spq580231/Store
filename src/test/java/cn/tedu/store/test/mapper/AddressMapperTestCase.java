@@ -36,6 +36,12 @@ public class AddressMapperTestCase {
 		Integer rows = mapper.insert(address);
 		System.out.println("rows=" + rows);
 	}
+
+	@Test
+	public void update() {
+		Integer rows = mapper.updateById(13);
+		System.out.println("rows=" + rows);
+	}
 	
 	@Before
 	public void doBefore() {
