@@ -1,16 +1,10 @@
 package cn.tedu.store.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import cn.tedu.store.entity.ResponseResult;
+import cn.tedu.store.entity.User;
+import cn.tedu.store.service.IUserService;
+import cn.tedu.store.service.ex.*;
+import cn.tedu.store.util.TextValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import cn.tedu.store.entity.ResponseResult;
-import cn.tedu.store.entity.User;
-import cn.tedu.store.service.IUserService;
-import cn.tedu.store.service.ex.RequestArgumentException;
-import cn.tedu.store.service.ex.UploadFileContentTypeException;
-import cn.tedu.store.service.ex.UploadFileSizeLimitException;
-import cn.tedu.store.service.ex.UploadIOException;
-import cn.tedu.store.service.ex.UploadStateException;
-import cn.tedu.store.util.TextValidator;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -148,8 +142,8 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/delSession.do", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseResult<Void> delSession(HttpSession session) {
-        session.removeAttribute("uid");
+    public ResponseResult<Void> delSession(@RequestParam("uid")String uid,HttpSession session) {
+        session.removeAttribute(uid);
         return null;
     }
 

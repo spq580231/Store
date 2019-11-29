@@ -337,6 +337,7 @@
 		$.ajax({
 			"url": url,
 			"type": "POST",
+			"data":"uid=uid",
 			"dataType": "json",
 			"success": function(json) {
 				if (json.state==200) {	

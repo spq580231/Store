@@ -365,6 +365,7 @@
     // 页面加载后
     $("document").ready(function () {
         // 加载省列表
+        //delSession();
         showProvinceList();
         getAddressId();
 
@@ -394,9 +395,22 @@
             "type": "POST",
             "dataType": "json",
             "success": function (json) {
-                if (json.state == 200) {
+                if (json.state == 200 && json.data!=null) {
                     findAddressById(json.data)
                 }
+            }
+        });
+
+    }
+
+    function delSession() {
+        $.ajax({
+            "url": "../user/delSession.do",
+            "data": "uid=AddressId",
+            "type": "POST",
+            "dataType": "json",
+            "success": function (json) {
+
             }
         });
 
