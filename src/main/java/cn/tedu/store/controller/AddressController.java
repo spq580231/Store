@@ -99,7 +99,7 @@ public class AddressController extends BaseController {
         Integer uid = getUidFromSession(session);
         addressService.findAddressFromId(id);
         Address list = addressService.getAddressById(id);
-        System.out.println(list);
+        //System.out.println(list);
         ResponseResult<Address> rr = new ResponseResult<Address>();
         rr.setData(list);
         return rr;

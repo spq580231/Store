@@ -160,14 +160,14 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label"><span style="color: red;">*</span>省/直辖市：</label>
                         <div class="col-md-3">
-                            <select name="recvProvince" class="form-control" data-province="---- 选择省 ----"
+                            <select name="recvProvince"  class="form-control" data-province="---- 选择省 ----"
                                     id="recvProvince">
                                 <option value="0">--- 请选择省 ---</option>
                             </select>
                         </div>
                         <label class="col-md-2 control-label"><span style="color: red;">*</span>城市：</label>
                         <div class="col-md-3">
-                            <select name="recvCity" class="form-control" data-city="---- 选择市 ----" id="recvCity">
+                            <select name="recvCity"  class="form-control" data-city="---- 选择市 ----" id="recvCity">
                                 <option value="0">--- 请选择市 ---</option>
                             </select>
                         </div>
@@ -175,38 +175,38 @@
                     <div class="form-group ">
                         <label class="col-md-2 control-label"><span style="color: red;">*</span>区县：</label>
                         <div class="col-md-3">
-                            <select name="recvArea" class="form-control" data-district="---- 选择区 ----" id="recvArea">
+                            <select name="recvArea"  class="form-control" data-district="---- 选择区 ----" id="recvArea">
                                 <option value="0">--- 请选择区 ---</option>
                             </select>
                         </div>
                         <label class="col-md-2 control-label">邮政编码：</label>
                         <div class="col-md-3">
-                            <input name="recvZip" type="text" class="form-control" placeholder="请输入邮政编码">
+                            <input name="recvZip" id="recvZip" type="text" class="form-control" placeholder="请输入邮政编码">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label"><span style="color: red;">*</span>详细地址：</label>
                     <div class="col-md-8">
-                        <textarea name="recvAddress" class="form-control" rows="3"
+                        <textarea name="recvAddress" id="recvAddress" class="form-control" rows="3"
                                   placeholder="输入详细的收货地址，小区名称、门牌号等"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label"><span style="color: red;">*</span>手机：</label>
                     <div class="col-md-3">
-                        <input name="recvPhone" type="text" class="form-control" placeholder="请输入手机号码">
+                        <input name="recvPhone" id="recvPhone" type="text" class="form-control" placeholder="请输入手机号码">
                     </div>
                     <label class="col-md-2 control-label">固话：</label>
                     <div class="col-md-3">
-                        <input name="recvTel" type="text" class="form-control" placeholder="请输入固定电话号码">
+                        <input name="recvTel" id="recvTel" type="text" class="form-control" placeholder="请输入固定电话号码">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label">地址类型：</label>
                     <div class="col-md-8">
-                        <input name="recvTag" type="text" class="form-control" placeholder="请输入地址类型，如：家、公司或者学校">
+                        <input name="recvTag" type="text" id="recvTag" class="form-control" placeholder="请输入地址类型，如：家、公司或者学校">
                     </div>
                 </div>
                 <div class="form-group">
@@ -305,44 +305,29 @@
 <script type="text/javascript">
     // 显示省列表
     function showProvinceList() {
-        showDistrictList(
-            $("#recvProvince"),
-            "--- 请选择省 ---",
-            "86"
-        );
+        showDistrictList($("#recvProvince"), "--- 请选择省 ---", "86");
     }
 
     // 显示城市列表
     function showCityList() {
-        showDistrictList(
-            $("#recvCity"),
-            "--- 请选择市 ---",
-            $("#recvProvince").val()
-        );
+        showDistrictList($("#recvCity"), "--- 请选择市 ---", $("#recvProvince").val());
     }
 
     // 显示区列表
     function showAreaList() {
-        showDistrictList(
-            $("#recvArea"),
-            "--- 请选择区 ---",
-            $("#recvCity").val()
-        );
+        showDistrictList($("#recvArea"), "--- 请选择区 ---", $("#recvCity").val());
     }
-
     function showDistrictList(menu, defaultText, parentCode) {
         // 清空当前下拉列表/菜单
         menu.empty();
-
         // 准备加载新的列表
-        //console.log("加载列表...");
+        console.log("加载列表...");
         var op = '<option value="0">' + defaultText + '</option>';
         menu.append(op);
-
         // 请求并处理响应结果
         var url = "../district/list.do";
         var data = "parent=" + parentCode;
-        console.log("data=" + data);
+
         $.ajax({
             "url": url,
             "data": data,
@@ -352,10 +337,7 @@
                 var list = json.data;
                 for (var i = 0; i < list.length; i++) {
                     console.log("code=" + list[i].code + ", name=" + list[i].name);
-                    // <option value="1">北京</option>
-                    var op = '<option value="'
-                        + list[i].code + '">'
-                        + list[i].name + '</option>';
+                    var op = '<option value="' + list[i].code + '">' + list[i].name + '</option>';
                     menu.append(op);
                 }
             }
@@ -365,10 +347,8 @@
     // 页面加载后
     $("document").ready(function () {
         // 加载省列表
-        //delSession();
         showProvinceList();
-        getAddressId();
-
+       // getAddressId();
         var url = "../user/info.do";
         $.ajax({
             "url": url,
@@ -377,9 +357,7 @@
             "success": function (json) {
                 if (json.state == 200) {
                     $("#login").html(
-                        "<a href='userdata.html'><span class='fa fa-user'>&nbsp"
-                        + json.data.username
-                        + "</span></a>")
+                        "<a href='userdata.html'><span class='fa fa-user'>&nbsp" + json.data.username + "</span></a>")
                     $("#logout")
                         .html("<a href='index.html'>退出</a>")
                 }
@@ -427,7 +405,15 @@
             "dataType": "json",
             "success": function (json) {
                 if (json.state == 200) {
-                    $("#recv-Name").val(json.data.recvName);
+                    $("#recvName").val(json.data.recvName);
+                    $("#recvProvince").val(json.data.recvProvince);
+                    $("#recvCity").val(json.data.recvCity);
+                    $("#recvArea").val(json.data.recvArea);
+                    $("#recvZip").val(json.data.recvZip);
+                    $("#recvAddress").val(json.data.recvAddress);
+                    $("#recvPhone").val(json.data.recvPhone);
+                    $("#recvTel").val(json.data.recvTel);
+                    $("#recvTag").val(json.data.recvTag);
                 } else {
                     alert("更新失败！" + json.message);
                 }
